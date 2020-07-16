@@ -1,2 +1,2 @@
-requests-HTML
-lxml
+flask
+requests
