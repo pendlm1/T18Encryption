@@ -37,11 +37,28 @@
 				<li><a href="../contact.html">Contact</a></li>
 		</div>
 	</header>
-	<script src="" async defer></script>
 
-	<h1>
-		Some tires
-	</h1>
+	<script>
+		const tire_urls = [
+			"https://www.discounttire.com/tires/all-season-catalog",
+			"https://www.discounttire.com/tires/all-terrain-catalog",
+			"https://www.discounttire.com/tires/atv-utv-catalog",
+			"https://www.discounttire.com/tires/competition-catalog",
+			"https://www.discounttire.com/tires/lawn-catalog",
+			"https://www.discounttire.com/tires/mud-terrain-catalog",
+			"https://www.discounttire.com/tires/passenger-catalog",
+			"https://www.discounttire.com/tires/performance-catalog",
+			"https://www.discounttire.com/tires/spare-catalog",
+			"https://www.discounttire.com/tires/summer-catalog",
+			"https://www.discounttire.com/tires/touring-catalog",
+			"https://www.discounttire.com/tires/trailer-catalog",
+			"https://www.discounttire.com/tires/truck-catalog",
+			"https://www.discounttire.com/tires/winter-catalog"
+		];
+
+		let a = require("scrape.js").getCircle("\/buy-tires\/[a-zA-Z0-9\-]*\?", tire_urls);
+		document.write(a);
+	</script>
 
 </body>
 
