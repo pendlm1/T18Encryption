@@ -1,8 +1,8 @@
 {% extends "../index.html" %}
 {% block content %}
 <ul>
-	{% for t in tires %}
-	<li><a>{{ t }}</a></li>
+	{% for link, link_name in tires %}
+	<li><a href={{ link }}>{{ link_name }}</a></li>
 	{% endfor %}
 </ul>
 {% endblock %}
