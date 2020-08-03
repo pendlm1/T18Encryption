@@ -62,15 +62,25 @@ app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
 
+<<<<<<< HEAD
 @app.route('/')
 def index():
     return render_template("index.html")
 
 @app.route('/about')
+=======
+@app.route("/index.html")
+def index():
+    return render_template(url_for("index"))
+
+
+@app.route("/")
+>>>>>>> 38b1a1037c09ba0e5eb8ba2664be46205b0cad5b
 def about():
     return render_template("about.html")
 
 
+<<<<<<< HEAD
 @app.route('/contact')
 def contact():
     return render_template("contact.html")
@@ -99,20 +109,58 @@ def reviews():
 @app.route("/shop")
 def shop():
     return render_template("shop.html")
+=======
+@app.route("/")
+def contact():
+    return render_template(url_for("contact"))
+
+
+@app.route("/")
+def coupons():
+    return render_template(url_for("coupons"))
+
+
+@app.route("/")
+def location():
+    return render_template(url_for("location"))
+
+
+@app.route("/")
+def repairs():
+    return render_template(url_for("repairs"))
+
+
+@app.route("/")
+def reviews():
+    return render_template(url_for("reviews"))
+
+
+@app.route("/")
+def shop():
+    return render_template(url_for("shop"))
+>>>>>>> 38b1a1037c09ba0e5eb8ba2664be46205b0cad5b
 
 
 @app.route("/tire_api", methods=['GET', 'POST'])
 def tires():
     tires = get_urls(tire_urls, r'\/buy-tires\/[a-zA-Z0-9\-]*\?')
     tire_names = [name_url(i) for i in tires]
+<<<<<<< HEAD
     return render_template(url_for("tire_api/tires.html"), tires=(tires, tire_names))
+=======
+    return render_template(url_for("tires"), tires=(tires, tire_names))
+>>>>>>> 38b1a1037c09ba0e5eb8ba2664be46205b0cad5b
 
 
 @app.route("/tire_api/wheels.html", methods=['GET', 'POST'])
 def wheels():
     wheels = get_urls(wheel_urls, r'\/buy-wheels\/[a-zA-Z0-9\-]*\?')
     wheel_names = [name_url(i) for i in wheels]
+<<<<<<< HEAD
     return render_template(url_for("tire_api/wheels"), wheels=(wheels, wheel_names))
+=======
+    return render_template(url_for("wheels"), wheels=(wheels, wheel_names))
+>>>>>>> 38b1a1037c09ba0e5eb8ba2664be46205b0cad5b
 
 
 if __name__ == '__main__':
