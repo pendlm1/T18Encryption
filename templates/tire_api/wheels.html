@@ -1,0 +1,8 @@
+{% extends "../index.html" %}
+{% block content %}
+<ul>
+	{% for link, link_name in tires %}
+	<li><a href={{ link }}>{{ link_name }}</a></li>
+	{% endfor %}
+</ul>
+{% endblock %}
