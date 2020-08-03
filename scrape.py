@@ -41,7 +41,7 @@ def get_urls(urls, reg_ex):
 
     for relev in urls:
         r = requests.get(relev, headers={
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36"}).text
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36"}).text  # This header had to be taken from elsewhere because some ID needs to be given, and I don't know how to give my own.
         regex = re.compile(reg_ex, re.M)
         url_list += regex.findall(r)
 
@@ -62,23 +62,58 @@ app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
 
-@app.route("/")
+@app.route("/index.html")
 def index():
-    return render_template(url_for("../index.html"))
+    return render_template(url_for("index"))
 
 
-@app.route("/tires.html", methods=['GET', 'POST'])
+@app.route("/")
+def about():
+    return render_template("about.html")
+
+
+@app.route("/")
+def contact():
+    return render_template(url_for("contact"))
+
+
+@app.route("/")
+def coupons():
+    return render_template(url_for("coupons"))
+
+
+@app.route("/")
+def location():
+    return render_template(url_for("location"))
+
+
+@app.route("/")
+def repairs():
+    return render_template(url_for("repairs"))
+
+
+@app.route("/")
+def reviews():
+    return render_template(url_for("reviews"))
+
+
+@app.route("/")
+def shop():
+    return render_template(url_for("shop"))
+
+
+@app.route("/tire_api", methods=['GET', 'POST'])
 def tires():
     tires = get_urls(tire_urls, r'\/buy-tires\/[a-zA-Z0-9\-]*\?')
     tire_names = [name_url(i) for i in tires]
-    return render_template(url_for("tires.html"), tires=(tires, tire_names))
+    return render_template(url_for("tires"), tires=(tires, tire_names))
 
 
-@app.route("/wheels.html", methods=['GET', 'POST'])
+@app.route("/tire_api/wheels.html", methods=['GET', 'POST'])
 def wheels():
     wheels = get_urls(wheel_urls, r'\/buy-wheels\/[a-zA-Z0-9\-]*\?')
     wheel_names = [name_url(i) for i in wheels]
-    return render_template(url_for("wheels.html"), wheels=(wheels, wheel_names))
+    return render_template(url_for("wheels"), wheels=(wheels, wheel_names))
 
 
 if __name__ == '__main__':
