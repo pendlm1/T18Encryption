@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {{csrf_token}}
+  <label>Make:<button>{{make}}</button></label>
+  <label>Model:<button>{{model}}</button></label>
+  <label>Year:<button>{{year}}</button></label>
+  <label>Make_ID:<button>{{makeID}}</button></label>
+  <label>Model_ID:<button>{{modelID}}</button></label>
+  <label>Vin:<button>{{vin}}</button></label>
+  <label>Request:<button>{{getRequest}}</button></label>
+  <form methond = "POST">
+
+    {% for i in info%}
+    <p>{{i}}</p>
+    {%endfor%}
+{% endblock %}
