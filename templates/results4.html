@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+table {font-family: arial, sans-serif; border-collapse: collapse; margin: auto; width: 75%;}
+td, th {border: 1px solid #dddddd; text-align: left; padding: 8px;}
+tr:nth-child(even) {background-color: gainsboro;}
+tr:nth-child(1) {color: rgb(27,150,250);}
+</style>
+  {{csrf_token}}
+  <h1>{{getRequest}}</h1>
+  <h1>Search Results:<h1>
+    <table>
+      <tr>
+        <th>Model ID</th>
+        <th>Model</th>
+        <th>Make ID</th>
+        <th>Make</th>
+      </tr>
+      {% for i in info%}
+      <tr>
+        <td>{{i["Model_ID"]}}</td>
+        <td>{{i["Model_Name"]}}</td>
+        <td>{{i["Make_ID"]}}</td>
+        <td>{{i["Make_Name"]}}</td>
+      </tr>
+      {%endfor%}
+  <table>
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+table {font-family: arial, sans-serif; border-collapse: collapse; margin: auto; width: 75%;}
+td, th {border: 1px solid #dddddd; text-align: left; padding: 8px;}
+tr:nth-child(even) {background-color: gainsboro;}
+tr:nth-child(1) {color: rgb(27,150,250);}
+</style>
+  {{csrf_token}}
+  <h1>{{getRequest}}</h1>
+  <h1>Search Results:<h1>
+    <table>
+      <tr>
+        <th>Variable ID</th>
+        <th>Variable</th>
+        <th>Value ID</th>
+        <th>Value</th>
+
+      </tr>
+      {% for i in info%}
+      <tr>
+        <td>{{i["VariableId"]}}</td>
+        <td>{{i["Variable"]}}</td>
+        <td>{{i["ValueId"]}}</td>
+        <td>{{i["Value"]}}</td>
+      </tr>
+      {%endfor%}
+  <table>
+
+{% endblock %}

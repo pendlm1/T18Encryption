@@ -11,8 +11,8 @@ def decodeVin(vin,year):
     return myRequest
 
 #Decode WMI
-def decodeWMI(vin):
-    url = web + "/vehicles/decodewmi/"+vin+"?format=json"
+def decodeWMI(wmiID):
+    url = web + "/vehicles/decodewmi/"+wmiID+"?format=json"
     r = requests.get(url).text
     dic = json.loads(r)
     myRequest = dic["Results"]
@@ -43,8 +43,8 @@ def getMan(make):
     myRequest = dic["Results"]
     return myRequest
 
-#Get Makes for Manufacturer by Manufacturer Name and Year
-def getMfMbMNaY(make, year):
+#Get Makes for Manufacturer by Manufacturer Name and Year (Available if needed)
+def getMfMbMNaY(Mft, year):
     url = web + "/vehicles/GetMakesForManufacturerAndYear/"+make+"?year="+year+"&format=json"
     r = requests.get(url).text
     dic = json.loads(r)
@@ -113,17 +113,23 @@ def modelsbyMakeTypeYear(make,year,type):
 
 #Get Vehicle Variables List
 def getVVL():
-    url = web + "/vehicles/GetVehicleVariableList?format=json"
+    url = web + "/vehicles/getvehiclevariablelist?format=json"
     r = requests.get(url).text
     dic = json.loads(r)
     myRequest = dic["Results"]
     return myRequest
 
+#Get Equipment Plant Codes (Available if needed year > 2016, typeNum = 1-4, report = [new, updated, closed, all])
+def getEquipPlantCodes(year,typeNum,report):
+    url = web +"/vehicles/GetEquipmentPlantCodes?year="+year+"&equipmentType="+typeNum+"&reportType="+report+"&format=json"
+    r = requests.get(url).text
+    dic = json.loads(r)
+    myRequest = dic["Results"]
+    return myRequest
+
+#API Helper function
 def getResults(r,t):
     list = []
     for i in r:
         list.append(i[t])
     return list
-
-
-#postRequests()

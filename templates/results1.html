@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+table {font-family: arial, sans-serif; border-collapse: collapse; margin: auto; width: 90%;}
+td, th {border: 1px solid #dddddd; text-align: left; padding: 8px;}
+tr:nth-child(even) {background-color: gainsboro;}
+tr:nth-child(1) {color: rgb(27,150,250);}
+</style>
+  {{csrf_token}}
+  <h1>{{getRequest}}</h1>
+  <h1>Search Results:</h1>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>World Manufacturer ID</th>
+      <th>Country</th>
+      <th>Created On</th>
+      <th>Date Made Available to Public</th>
+      <th>ID</th>
+      <th>Updated On</th>
+      <th>Type</td>
+      <th>Parent Company Name</th>
+    </tr>
+    {% for i in info%}
+    <tr>
+      <td>{{i["Name"]}}</td>
+      <td>{{i["WMI"]}}</td>
+      <td>{{i["Country"]}}</td>
+      <td>{{i["CreatedOn"]}}</td>
+      <td>{{i["DateAvailableToPublic"]}}</td>
+      <td>{{i["Id"]}}</td>
+      <td>{{i["UpdatedOn"]}}</td>
+      <td>{{i["VehicleType"]}}</td>
+      <td>{{i["ParentCompanyName"]}}</td>
+    </tr>
+    {%endfor%}
+  </table>
+{% endblock %}

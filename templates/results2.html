@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+table {font-family: arial, sans-serif; border-collapse: collapse; margin: auto;}
+td, th {border: 1px solid #dddddd; text-align: left; padding: 8px;}
+tr:nth-child(even) {background-color: gainsboro;}
+tr:nth-child(1) {color: rgb(27,150,250);}
+</style>
+  {{csrf_token}}
+  <h1>{{getRequest}}</h1>
+  <h1>Search Results:</h1>
+  <table>
+    <tr>
+      <th>Mfr_ID</th>
+      <th>Mfr_Name</th>
+      <th>Address</th>
+      <th>Address2</th>
+      <th>City</th>
+      <th>StateProvince</th>
+      <th>PostalCode</th>
+      <th>Country</th>
+      <th>ContactEmail</th>
+      <th>ContactFax</th>
+      <th>ContactPhone</th>
+      <th>Mfr_CommonName</th>
+      <th>DBAs</th>
+      <th>EquipmentItems</th>
+      <th>LastUpdated</th>
+      <th>ManufacturerTypes</th>
+      <th>OtherManufacturerDetails</th>
+      <th>PrimaryProduct</th>
+      <th>PrincipalFistName</th>
+      <th>PrincipalLastName</th>
+      <th>PrincipalPosition</th>
+      <th>SubmittedName</th>
+      <th>SubmittedOn</th>
+      <th>SubmittedPosition</th>
+      <th>VehicleTypes</th>
+    </tr>
+    {% for i in info%}
+    <tr>
+      <td>{{i["Mfr_ID"]}}</td>
+      <td>{{i["Mfr_Name"]}}</td>
+      <td>{{i["Address"]}}</td>
+      <td>{{i["Address2"]}}</td>
+      <td>{{i["City"]}}</td>
+      <td>{{i["StateProvince"]}}</td>
+      <td>{{i["PostalCode"]}}</td>
+      <td>{{i["Country"]}}</td>
+      <td><a href="{{ContactEmail}}">{{i["ContactEmail"]}}</a></td>
+      <td>{{i["ContactFax"]}}</td>
+      <td>{{i["ContactPhone"]}}</td>
+      <td>{{i["Mfr_CommonName"]}}</td>
+      <td>{{i["DBAs"]}}</td>
+      <td>{{i["EquipmentItems"]}}</td>
+      <td>{{i["LastUpdated"]}}</td>
+      <td>{{i["ManufacturerTypes"]}}</td>
+      <td>{{i["OtherManufacturerDetails"]}}</td>
+      <td>{{i["PrimaryProduct"]}}</td>
+      <td>{{i["PrincipalFistName"]}}</td>
+      <td>{{i["PrincipalLastName"]}}</td>
+      <td>{{i["PrincipalPosition"]}}</td>
+      <td>{{i["SubmittedName"]}}</td>
+      <td>{{i["SubmittedOn"]}}</td>
+      <td>{{i["SubmittedPosition"]}}</td>
+      <td>{{i["VehicleTypes"]}}</td>
+    </tr>
+    {%endfor%}
+  </table>
+{% endblock %}

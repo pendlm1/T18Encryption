@@ -8,7 +8,6 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from apifunctions import*
 
-
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
@@ -20,10 +19,9 @@ class makeform(FlaskForm):
     gets = []
     getAPI = [
     "Decode VIN","Decode WMI","Get WMIs for Manufacturer","Get All Makes","Get Manufacturer Details",
-    "Get Makes for Manufacturer by Manufacturer Name and Year","Get Makes for Vehicle Type by Vehicle Type Name",
-    "Get Vehicle Types for Make by Name","Get Vehicle Types for Make by Id","Get Models for Make","Get Models for MakeId",
+    "Get Makes for Vehicle Type by Vehicle Type Name","Get Vehicle Types for Make by Name",
+    "Get Vehicle Types for Make by Id","Get Models for Make","Get Models for MakeId",
     "Get Models for Make and a combination of Year and Vehicle Type","Get Vehicle Variables List",
-    "Get Vehicle Variable Values List","Get Canadian vehicle specifications"
     ]
     year = int(time.strftime("%Y"))
     for y in range (year +2,year -100,-1):
@@ -43,6 +41,7 @@ class makeform(FlaskForm):
     vin = TextField("Vin: ")
     getRequest = SelectField("Request: ", choices = gets)
     type = IntegerField("Type: ")
+    wmiID = StringField("WMI ID: ")
     submit = SubmitField("Submit")
 
 @app.route('/')
@@ -60,7 +59,6 @@ def about():
 @app.route('/contact')
 def contact():
     return render_template("contact.html")
-
 
 @app.route('/coupons')
 def coupons():
@@ -86,7 +84,6 @@ def wheels():
 
 @app.route("/results", methods = ["GET","POST"])
 def models():
-    info = ""
     make = request.values.get("make")
     model = request.values.get("model")
     year = request.values.get("year")
@@ -95,98 +92,63 @@ def models():
     vin = request.values.get("vin")
     type = request.values.get("type")
     getRequest = request.values.get("getRequest")
+    wmiID = request.values.get("wmiID")
 
     if getRequest == "Get All Makes":
-        r = getAllMakes()
-        t = "Make_Name"
-        info = getResults(r,t)
+        info = getAllMakes()
+        return render_template("results8.html",wmiID=wmiID,type=type,make=make,model=model,year=year,makeID=makeID,modelID=modelID,vin=vin,getRequest=getRequest,info=info)
     elif getRequest == "Get WMIs for Manufacturer":
-        r = getWMIsM(make)
-        t = "Name"
-        info = getResults(r,t)
-        info.sort()
+        info = getWMIsM(make)
+        return render_template("results1.html",wmiID=wmiID,type=type,make=make,model=model,year=year,makeID=makeID,modelID=modelID,vin=vin,getRequest=getRequest,info=info)
     elif getRequest == "Get Manufacturer Details":
-        r = getMan(make)
-        t = "Mfr_Name"
-        info = getResults(r,t)
-        info.sort()
+        info = getMan(make)
+        return render_template("results2.html",wmiID=wmiID,type=type,make=make,model=model,year=year,makeID=makeID,modelID=modelID,vin=vin,getRequest=getRequest,info=info)
+    #coded but not included. I chose to make this one optional.
     elif getRequest == "Get Makes for Manufacturer by Manufacturer Name and Year":
-        r = getMfMbMNaY(make, year)
-        t = "MfrName"
-        info = getResults(r,t)
-        info.sort()
+        info = getMfMbMNaY(make, year)
+        return render_template("results3.html",wmiID=wmiID,type=type,make=make,model=model,year=year,makeID=makeID,modelID=modelID,vin=vin,getRequest=getRequest,info=info)
     elif getRequest == "Get Makes for Vehicle Type by Vehicle Type Name":
-        r = getMVType(type)
-        t = "MakeName"
-        info = getResults(r,t)
-        info.sort()
+        info = getMVType(type)
+        return render_template("results10.html",wmiID=wmiID,type=type,make=make,model=model,year=year,makeID=makeID,modelID=modelID,vin=vin,getRequest=getRequest,info=info)
     elif getRequest == "Get Vehicle Types for Make by Name":
-        r = getTypeMake(make)
-        t = "VehicleTypeName"
-        info = getResults(r,t)
-        info.sort()
+        info = getTypeMake(make)
+        return render_template("results0.html",wmiID=wmiID,type=type,make=make,model=model,year=year,makeID=makeID,modelID=modelID,vin=vin,getRequest=getRequest,info=info)
     elif getRequest == "Get Vehicle Types for Make by Id":
-        r = getTypeMakeID(makeID)
-        t = "VehicleTypeName"
-        info = getResults(r,t)
-        info.sort()
+        info = getTypeMakeID(makeID)
+        return render_template("results5.html",wmiID=wmiID,type=type,make=make,model=model,year=year,makeID=makeID,modelID=modelID,vin=vin,getRequest=getRequest,info=info)
     elif getRequest == "Get Equipment Plant Codes":
-        r = getEquipPlantCodes(year)
-        t = "DOTCode"
-        info = getResults(r,t)
-        info.sort()
-    elif getRequest == "Get Vehicle Types for Make by Id":
-        r = getAllModels(makeID)
-        t = "Model_Name"
-        info = getResults(r,t)
-        info.sort()
+        info = getEquipPlantCodes(year,typeNum,report)
+        return render_template("results5.html",wmiID=wmiID,type=type,make=make,model=model,year=year,makeID=makeID,modelID=modelID,vin=vin,getRequest=getRequest,info=info)
     elif getRequest == "Get Models for Make":
-        r = getAllModels(make)
-        t = "Model_Name"
-        info = getResults(r,t)
-        info.sort()
+        info = getAllModels(make)
+        return render_template("results4.html",wmiID=wmiID,type=type,make=make,model=model,year=year,makeID=makeID,modelID=modelID,vin=vin,getRequest=getRequest,info=info)
     elif getRequest == "Get Models for MakeId":
-        r = getAllModelsMI(makeID)
-        t = "Model_Name"
-        info = getResults(r,t)
-        info.sort()
+        info = getAllModelsMI(makeID)
+        return render_template("results6.html",wmiID=wmiID,type=type,make=make,model=model,year=year,makeID=makeID,modelID=modelID,vin=vin,getRequest=getRequest,info=info)
     elif getRequest == "Get Models for Make and a combination of Year and Vehicle Type":
         if type == "" and year == "":
-            r = getAllModels(make)
+            info = getAllModels(make)
+            return render_template("results4.html",wmiID=wmiID,type=type,make=make,model=model,year=year,makeID=makeID,modelID=modelID,vin=vin,getRequest=getRequest,info=info)
         elif type == "":
-            r = modelsbyMakeYear(make, year)
+            info = modelsbyMakeYear(make, year)
         elif year == "":
-            r = modelsbyMakeType(make, type)
+            info = modelsbyMakeType(make, type)
         else:
-            r = modelsbyMakeTypeYear(make,year,type)
-        t = "Model_Name"
-        info = getResults(r,t)
-        info.sort()
+            info = modelsbyMakeTypeYear(make,year,type)
+        return render_template("results4.html",wmiID=wmiID,type=type,make=make,model=model,year=year,makeID=makeID,modelID=modelID,vin=vin,getRequest=getRequest,info=info)
     elif getRequest == "Get Vehicle Variables List":
-         r = getVVL()
-         t = "Name"
-         info = getResults(r,t)
-         info.sort()
+         info = getVVL()
+         return render_template("results7.html",wmiID=wmiID,type=type,make=make,model=model,year=year,makeID=makeID,modelID=modelID,vin=vin,getRequest=getRequest,info=info)
     elif getRequest == "Decode VIN":
-         r = decodeVin(vin,year)
-         t = "Variable"
-         info = getResults(r,t)
-         info.sort()
+         info = decodeVin(vin,year)
+         return render_template("results9.html",wmiID=wmiID,type=type,make=make,model=model,year=year,makeID=makeID,modelID=modelID,vin=vin,getRequest=getRequest,info=info)
     elif getRequest == "Decode WMI":
-        r = decodeWMI(vin)
-        t = "CommonName"
-        info = getResults(r,t)
-        info.sort()
-    return render_template("results.html",type=type,make=make,model=model,year=year,makeID=makeID,modelID=modelID,vin=vin,getRequest=getRequest,info=info)
+        info = decodeWMI(wmiID)
+    return render_template("results.html",wmiID=wmiID,type=type,make=make,model=model,year=year,makeID=makeID,modelID=modelID,vin=vin,getRequest=getRequest,info=info)
 
 @app.route("/shop")
 def shop():
     form = makeform()
-    if form.validate_on_submit():
-        make = session["make"] = form.make.data
-        model = session["model"] = form.model.data
-        year = form.year.data
-        return redirect(url_for("models",make=make,model=model,year=year))
     return render_template("shop.html", form = form)
 
 if __name__ == '__main__':
