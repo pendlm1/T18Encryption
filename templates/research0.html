@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 style = "font-size:32px; background: gainsboro" >Vehicle Search</h1>
+<h2>{{getRequest}}</h2>
+<form methond = "POST" action = "{{url_for('models')}}">
+  {%if getRequest == "Decode VIN"%}
+      {{form.year.label}}{{form.year}}
+      {{form.vin.label}}{{form.vin}}
+
+  {%elif getRequest == "Decode WMI"%}
+      {{form.wmiID.label}}{{form.wmiID}}
+
+  {%elif getRequest == "Get Makes for Vehicle Type by Vehicle Type Name"%}
+      {{form.type.label}}{{form.type}}
+
+  {%elif getRequest == "Get Vehicle Variables List" or getRequest == "Get All Makes"%}
+      <p>Submit Your Request</p>
+
+  {%elif getRequest == "Get Models for Make and a combination of Year and Vehicle Type"%}
+      {{form.make.label}}{{form.make}}
+      {{form.year.label}}{{form.year}}
+      {{form.type.label}}{{form.type}}
+
+  {%elif getRequest == "Get Models for MakeId"%}
+      {{form.makeID.label}}{{form.makeID}}
+
+  {%elif getRequest == "Get Vehicle Types for Make by Id"%}
+      {{form.makeID.label}}{{form.makeID}}
+
+  {%else%}
+      {{form.make.label}}{{form.make}}
+  {%endif%}
+  <br>
+  <br>
+  {{form.submit()}}
+</form>
+<p>{{data}}</p>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 style = "font-size:32px; background: gainsboro">Vehicle Search Selection</h2>
+<form methond = "POST" action = "{{url_for('research0')}}">
+  {{form.getRequest.label}}{{form.getRequest}}
+  <br>
+  <br>
+  {{form.submit()}}
+</form>
+<p>{{data}}</p>
+{% endblock %}

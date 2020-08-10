@@ -8,6 +8,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from apifunctions import*
 
+myData = ""
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
@@ -84,6 +85,8 @@ def wheels():
 
 @app.route("/results", methods = ["GET","POST"])
 def models():
+    form = makeform()
+    info = ""
     make = request.values.get("make")
     model = request.values.get("model")
     year = request.values.get("year")
@@ -91,41 +94,41 @@ def models():
     makeID = request.values.get("makeID")
     vin = request.values.get("vin")
     type = request.values.get("type")
-    getRequest = request.values.get("getRequest")
     wmiID = request.values.get("wmiID")
+    getRequest = request.values.get("getRequest")
 
-    if getRequest == "Get All Makes":
+    if myData == "Get All Makes":
         info = getAllMakes()
         return render_template("results8.html",wmiID=wmiID,type=type,make=make,model=model,year=year,makeID=makeID,modelID=modelID,vin=vin,getRequest=getRequest,info=info)
-    elif getRequest == "Get WMIs for Manufacturer":
+    elif myData == "Get WMIs for Manufacturer":
         info = getWMIsM(make)
         return render_template("results1.html",wmiID=wmiID,type=type,make=make,model=model,year=year,makeID=makeID,modelID=modelID,vin=vin,getRequest=getRequest,info=info)
-    elif getRequest == "Get Manufacturer Details":
+    elif myData == "Get Manufacturer Details":
         info = getMan(make)
         return render_template("results2.html",wmiID=wmiID,type=type,make=make,model=model,year=year,makeID=makeID,modelID=modelID,vin=vin,getRequest=getRequest,info=info)
     #coded but not included. I chose to make this one optional.
-    elif getRequest == "Get Makes for Manufacturer by Manufacturer Name and Year":
+    elif myData == "Get Makes for Manufacturer by Manufacturer Name and Year":
         info = getMfMbMNaY(make, year)
         return render_template("results3.html",wmiID=wmiID,type=type,make=make,model=model,year=year,makeID=makeID,modelID=modelID,vin=vin,getRequest=getRequest,info=info)
-    elif getRequest == "Get Makes for Vehicle Type by Vehicle Type Name":
+    elif myData == "Get Makes for Vehicle Type by Vehicle Type Name":
         info = getMVType(type)
         return render_template("results10.html",wmiID=wmiID,type=type,make=make,model=model,year=year,makeID=makeID,modelID=modelID,vin=vin,getRequest=getRequest,info=info)
-    elif getRequest == "Get Vehicle Types for Make by Name":
+    elif myData == "Get Vehicle Types for Make by Name":
         info = getTypeMake(make)
         return render_template("results0.html",wmiID=wmiID,type=type,make=make,model=model,year=year,makeID=makeID,modelID=modelID,vin=vin,getRequest=getRequest,info=info)
-    elif getRequest == "Get Vehicle Types for Make by Id":
+    elif myData == "Get Vehicle Types for Make by Id":
         info = getTypeMakeID(makeID)
         return render_template("results5.html",wmiID=wmiID,type=type,make=make,model=model,year=year,makeID=makeID,modelID=modelID,vin=vin,getRequest=getRequest,info=info)
-    elif getRequest == "Get Equipment Plant Codes":
+    elif myData == "Get Equipment Plant Codes":
         info = getEquipPlantCodes(year,typeNum,report)
         return render_template("results5.html",wmiID=wmiID,type=type,make=make,model=model,year=year,makeID=makeID,modelID=modelID,vin=vin,getRequest=getRequest,info=info)
-    elif getRequest == "Get Models for Make":
+    elif myData == "Get Models for Make":
         info = getAllModels(make)
         return render_template("results4.html",wmiID=wmiID,type=type,make=make,model=model,year=year,makeID=makeID,modelID=modelID,vin=vin,getRequest=getRequest,info=info)
-    elif getRequest == "Get Models for MakeId":
+    elif myData == "Get Models for MakeId":
         info = getAllModelsMI(makeID)
         return render_template("results6.html",wmiID=wmiID,type=type,make=make,model=model,year=year,makeID=makeID,modelID=modelID,vin=vin,getRequest=getRequest,info=info)
-    elif getRequest == "Get Models for Make and a combination of Year and Vehicle Type":
+    elif myData == "Get Models for Make and a combination of Year and Vehicle Type":
         if type == "" and year == "":
             info = getAllModels(make)
             return render_template("results4.html",wmiID=wmiID,type=type,make=make,model=model,year=year,makeID=makeID,modelID=modelID,vin=vin,getRequest=getRequest,info=info)
@@ -136,20 +139,28 @@ def models():
         else:
             info = modelsbyMakeTypeYear(make,year,type)
         return render_template("results4.html",wmiID=wmiID,type=type,make=make,model=model,year=year,makeID=makeID,modelID=modelID,vin=vin,getRequest=getRequest,info=info)
-    elif getRequest == "Get Vehicle Variables List":
+    elif myData == "Get Vehicle Variables List":
          info = getVVL()
          return render_template("results7.html",wmiID=wmiID,type=type,make=make,model=model,year=year,makeID=makeID,modelID=modelID,vin=vin,getRequest=getRequest,info=info)
-    elif getRequest == "Decode VIN":
+    elif myData == "Decode VIN":
          info = decodeVin(vin,year)
          return render_template("results9.html",wmiID=wmiID,type=type,make=make,model=model,year=year,makeID=makeID,modelID=modelID,vin=vin,getRequest=getRequest,info=info)
-    elif getRequest == "Decode WMI":
+    elif myData == "Decode WMI":
         info = decodeWMI(wmiID)
-    return render_template("results.html",wmiID=wmiID,type=type,make=make,model=model,year=year,makeID=makeID,modelID=modelID,vin=vin,getRequest=getRequest,info=info)
+    return render_template("results.html",form=form,wmiID=wmiID,type=type,make=make,model=model,year=year,makeID=makeID,modelID=modelID,vin=vin,getRequest=getRequest,info=info)
 
-@app.route("/shop")
-def shop():
+@app.route("/research0")
+def research0():
     form = makeform()
-    return render_template("shop.html", form = form)
+    getRequest = request.values.get("getRequest")
+    global myData
+    myData = getRequest
+    return render_template("research0.html",form = form,getRequest=getRequest)
+
+@app.route("/research")
+def research():
+    form = makeform()
+    return render_template("research.html", form = form)
 
 if __name__ == '__main__':
     app.run(debug=True)
