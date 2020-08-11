@@ -1,0 +1,14 @@
+{% extends "repairs.html" %}
+{% block repairs %}
+<h1>Thanks, please review your information</h1>
+<ul>
+  <li>First Name:{{session["firstname"]}}</li>
+  <li>Last Name:{{session["lastname"]}}</li>
+  <li>Phone:{{session["phone"]}}</li>
+  <li>Email:{{session["email"]}}</li>
+  <li>Year:{{session["year"]}}</li>
+  <li>Make:{{session["make"]}}</li>
+  <li>Model:{{session["model"]}}</li>
+  <li>Appointment Date:{{session["date"]}}</li>
+</ul>
+{% endblock %}

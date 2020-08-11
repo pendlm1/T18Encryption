@@ -1,0 +1,20 @@
+{% extends "repairs.html" %}
+{% block repairs %}
+<h1>Cancel Appointment</h1>
+<h2>Please enter your Appointment Confirmation ID</h2>
+<form method = "POST">
+  {{ form.csrf_token }}
+  {{form.id.label}} {{form.id}}
+
+  {%for error in form.id.errors%}
+  <p style = "color:red">{{error}}</p>
+  {%endfor%}
+
+  <br>
+  <br>
+  {{form.delete()}}
+  {%for error in form.delete.errors%}
+  <p style = "color:red">{{error}}</p>
+  {%endfor%}
+</form>
+{% endblock %}

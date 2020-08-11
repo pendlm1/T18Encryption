@@ -1,0 +1,20 @@
+{% extends "repairs.html" %}
+{% block repairs %}
+<style>
+table {font-family: arial, sans-serif; border-collapse: collapse; margin: 10px; width: 75%; color: rgb(27,150,250);}
+td, th {text-align: left; padding: 8px;}
+</style>
+
+<h1>Appointment Scheduler</h1>
+<h2>Please complete the information below to schedule your appointment</h2>
+    <form method = "POST">
+      {{form.hidden_tag()}}
+    <table>
+        <th>{{form.firstname.label}}</th> <th>{{form.firstname}}</th>
+        <th>{{form.lastname.label}}</th> <th>{{form.lastname}}</th>
+        <th></th> <th></th>
+      </tr>
+  </table>
+    {{form.search}}
+  </form>
+{% endblock %}

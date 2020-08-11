@@ -1,5 +1,22 @@
 {% extends "base.html" %}
-
 {% block content %}
-<h1>Repairs</h1>
+<style>
+table {font-family: arial, sans-serif; border-collapse: collapse; margin: auto; width: 75%;}
+td, th {text-align: left; padding: 8px;}
+tr:nth-child(odd) {background-color: gainsboro;}
+tr:nth-child(1) {color: rgb(27,150,250);}
+</style>
+
+<table>
+  <tr>
+      <th><a href= "{{url_for('appointment')}}">Schedule Appointment</a></th>
+      <th><a href= "{{url_for('customer')}}">List all Apointments</a></th>
+      <th><a href= "{{url_for('search')}}">Get Appointments By Date</a></th>
+      <th><a href= "{{url_for('cancelappointment')}}">Cancel Appointment</a></th>
+  </tr>
+</table>
+{% block repairs %}
+
+{% endblock %}
+
 {% endblock %}

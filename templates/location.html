@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Pendleton Auto Repair</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='reset.css') }}">
+	<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+	<script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
+	<link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet' />
+</head>
+
+<body>
+	<!--[if lt IE 7]>
+			<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+		<![endif]-->
+	<header>
+		<img id="logo" src="static/logo2.jpg" alt="Pendleton Auto Repair 1710 2nd Ave East, Oneonta AL, 35121">
+		<div class="navbar">
+			<ul>
+				<li><a href="home">Home</a></li>
+				<li><a href="research">Vehicle Research</a></li>
+				<li><a href="tires">Tires</a></li>
+				<li><a href="wheels">Wheels</a></li>
+				<li><a href="repairs">Schedule Auto Repairs</a></li>
+				<li><a href="coupons">Coupons</a></li>
+				<li><a href="location">Locations</a></li>
+		</div>
+	</header>
+
+	<div id='address' style="
+	text-align: center;
+	font-family: 'Bebas Neue', cursive;
+	font-size: 150%;
+	color: slategray;
+	margin: 10px;
+	">
+	<h1>Pendleton's Auto Repair</h1>
+	<h2>1710 2nd Ave East</h2>
+	<h2>Oneonta, Alabama 35121<h2>
+	</div>
+
+	<!--Style for the embedded map-->
+	<div id='map' style='
+	width: 800px;
+	height: 600px;
+	border-radius: 10px;
+	margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: block;'></div>
+	<script>
+	//Script to embed a map of the store's location on the page using mapboxgl
+	mapboxgl.accessToken = 'pk.eyJ1IjoibmF0aGFubGVkYmV0dGVyIiwiYSI6ImNrZGYyYjlkZzFuZXcyeGpxZWFkcWNrbWEifQ.2m7aP5cNYshVCAS_581d3g';
+	var map = new mapboxgl.Map({
+	container: 'map',
+	style: 'mapbox://styles/nathanledbetter/ckd0wys9l1g241imtffdrwtw4', // stylesheet location
+	center: [-86.4582, 33.9655], // starting position [lng, lat]
+	zoom: 12 // starting zoom
+	});
+
+	//Sets a map marker at the shop
+	var marker = new mapboxgl.Marker()
+	.setLngLat([-86.4582, 33.9655])
+	.addTo(map); // add the marker to the map
+
+	//Displays a popup over the marker to show the address
+	var markerHeight = 50, markerRadius = 10, linearOffset = 25;
+	var popupOffsets = {
+		'top': [0, 0],
+		'top-left': [0,0],
+		'top-right': [0,0],
+		'bottom': [0, -markerHeight],
+		'bottom-left': [linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
+		'bottom-right': [-linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
+		'left': [markerRadius, (markerHeight - markerRadius) * -1],
+		'right': [-markerRadius, (markerHeight - markerRadius) * -1]
+	};
+	var popup = new mapboxgl.Popup({offset: popupOffsets, className: 'my-class'})
+	.setLngLat([-86.4582, 33.9655])
+	.setHTML("<h1>Pendleton's Auto Repair<h1><h2>1710 2nd Ave East</h2><h2>Oneonta, Alabama 35121<h2>")
+	.setMaxWidth("300px")
+	.addTo(map);
+
+	map.addControl(new mapboxgl.NavigationControl());
+	</script>
+
+	<script src="" async defer></script>
+</body>
+
+</html>

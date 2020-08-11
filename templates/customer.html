@@ -1,0 +1,29 @@
+{% extends "repairs.html" %}
+{% block repairs %}
+
+<table>
+  <br>
+  <tr>
+    <th> Appointment ID</th>
+    <th> Appointment Date</th>
+    <th> Client</th>
+    <th> Contact Number</th>
+    <th> Email Address</th>
+    <th> Vehicle Year</th>
+    <th> Vehicle Make</th>
+    <th> Vehicle Model</th>
+  </tr>
+  {% for item in items%}
+    <tr>
+      <th> {{item["id"]}}</th>
+      <th> {{item["date"]}}</th>
+      <th> {{item["firstname"]}} {{item["lastname"]}}</th>
+      <th> {{item["phone"]}}</th>
+      <th> {{item["email"]}}</th>
+      <th> {{item["year"]}}</th>
+      <th> {{item["make"]}}</th>
+      <th> {{item["model"]}}</th>
+    </tr>
+  {% endfor %}
+</table>
+{% endblock %}
