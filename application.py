@@ -8,7 +8,8 @@ from wtforms.validators import DataRequired
 from flask_sqlalchemy import SQLAlchemy
 from apifunctions import*
 
-app = Flask(__name__)
+#AWS requires a variable called application
+application = app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
 
