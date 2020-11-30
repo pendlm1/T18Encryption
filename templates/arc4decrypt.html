@@ -1,0 +1,27 @@
+{%extends "base.html"%}
+{%block content%}
+
+</div>
+<h1>Hello {{username}} please complete the information below</h1>
+<form action= "{{url_for('arc4uploads')}}" name = "t18" enctype="multipart/form-data" method="POST">
+  <table class="table" style = "margin:auto">
+    <th>
+      <label for="fileName">File Name:</label>
+      <br>
+      <input type ="file" name ="fileName" class = "btn btn-lg btn-secondary" ></input>
+    </th>
+    <tr>
+      <td>
+        <label for="arc4Key"><b>ARC4 Decryption Key(file type .txt):</b></label>
+        <br>
+        <input type ="file" name ="arc4Key"></input>
+      </td>
+    </tr>
+    <td>
+      <button type ="submit" class = "btn btn-lg btn-secondary">Submit</button>
+    </td>
+  </table>
+</form>
+<div>
+
+{%endblock%}

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+<!-- Body -->
+{% block content %}
+  <div class="register-form">
+    <form onsubmit="return false;">
+      <h1>Sign up.</h1>
+      <div class="input-div">
+        <div class="username-block">
+          <div class="username-label-block"> Username </div>
+          <input id="sign_up_username"
+            type="text" class="form-control"
+            placeholder="Enter Username">
+
+        </div>
+        <div class="email-block">
+          <div class="email-label-block"> Email </div>
+          <input id="sign_up_email"
+            type="text" class="form-control"
+            placeholder="Enter Email">
+
+        </div>
+
+
+        <div class="password-block">
+          <div class="password-label-block"> Password </div>
+          <input id="sign_up_password"
+          type="password" class="form-control"
+          placeholder="Enter Password">
+        </div>
+
+        <button type="submit" class="btn btn-lg btn-secondary"
+          onclick="register();">
+          Register Account
+        </button>
+      </div>
+    </form>
+    <p class="lead">
+      <a href="login" class="btn">Already registered? Click here to Log in.</a>
+    </p>
+  </div>
+{% endblock %}

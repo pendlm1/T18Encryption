@@ -1,0 +1,41 @@
+{%extends "base.html"%}
+{%block content%}
+
+</div>
+<h1>Hello {{username}} please complete the information below</h1>
+<form action= "{{url_for('doubleDecryptUploads')}}" name = "t18" enctype="multipart/form-data" method="POST">
+  <table class="table" style = "margin:auto">
+    <th>
+      <label for="fileName">File Name:</label>
+      <br>
+      <input type ="file" name ="fileName" class = "btn btn-lg btn-secondary" ></input>
+    </th>
+    <tr>
+      <td>
+        <label for="aesKey"><b>AES Decryption Key(file type .txt):</b></label>
+        <br>
+        <input type ="file" name ="aesKey"></input>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="chacha20Key"><b>ChaCha20 Decryption Key(file type .txt):</b></label>
+        <br>
+        <input type ="file" name ="chacha20Key"></input>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="chachaNonce"><b>ChaCha Nonce Decryption Key(file type .txt):</b></label>
+        <br>
+        <input type ="file" name ="chachaNonce"></input>
+      </td>
+    </tr>
+    <td>
+      <button type ="submit" class = "btn btn-lg btn-secondary">Submit</button>
+    </td>
+  </table>
+</form>
+<div>
+
+{%endblock%}

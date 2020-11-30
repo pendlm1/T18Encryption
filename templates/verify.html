@@ -1,0 +1,43 @@
+
+{% extends "base.html" %}
+
+
+<!-- Body -->
+{% block content %}
+  <div class="register-form">
+    <form onsubmit="return false;">
+      <h1>Submit code</h1>
+      <div class="input-div">
+        <div class="username-block">
+          <div class="username-label-block"> Username </div>
+          <input id="code_username"
+            type="text" class="form-control"
+            placeholder="Enter Username">
+
+        <div class="code-block">
+          <div class="code-label-block"> Code </div>
+          <input id="code_code"
+          type="text" class="form-control"
+          placeholder="Enter Code">
+        </div>
+
+        <button type="submit" class="btn btn-lg btn-secondary"
+          onclick="validate();">
+          Validate
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="{{ url_for('static',
+    filename='scripts/aws-cognito-sdk.min.js') }}"></script>
+  <script src="{{ url_for('static',
+    filename='scripts/aws-cognito-identity.min.js') }}"></script>
+
+  <script src="{{ url_for('static',
+    filename='scripts/app.js') }}"></script>
+
+
+  <script src="https://sdk.amazonaws.com/js/aws-sdk-2.792.0.min.js"></script>
+{% endblock %}

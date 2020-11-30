@@ -1,0 +1,15 @@
+{%extends "base.html"%}
+{% block content%}
+
+
+  <div class = "cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <h1>Thank you {{username}} for using T18 Encryption</h1>
+    <h4>File Name:</h4>
+    <p>{{fileName}}</p>
+    <h4>Encryption:</h4>
+    <p>{{encryptionType}}</p>
+    <p>Please click <a href ="static/uploads/decrypted_{{fileName}}" download><b><i>here</i></b></a> to download your decrypted file:</p></h4>
+    <h4>Decryption Keys: </h4>
+  </div>
+
+{%endblock%}

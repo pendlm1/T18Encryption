@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+
+<!-- Body -->
+{% block content %}
+<div class="container">
+  <div class="logout-form">
+    <div class="stupid-joke">
+      <h1>Logging out, <span id="username"></span>? So soon?! :(</h1>
+    </div>
+
+    <button class="btn"
+      onclick="signOut();">
+      Sign out
+    </button>
+
+  </div>
+</div>
+{% endblock %}

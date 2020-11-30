@@ -1,0 +1,31 @@
+{%extends "base.html"%}
+{% block content%}
+<dive>
+  <h1>Select Encryption Type</h1>
+  <table class ="table">
+    <form action= "{{url_for('results')}}" name = "t18" enctype="multipart/form-data">
+      <th>
+        <label for="fileName">File Name:</label>
+        <textarea name ="fileName" style="height:30px">{{fileName}}</textarea>
+      </th>
+      <tr>
+      <th>
+        <label for = "encryptionType">Encryption Type:</label>
+        <select name ="encryptionType">
+          <option value="AES Encryption">AES Encryption</option>
+          <option value="ARC4 Encryption">ARC4 Encryption</option>
+          <option value="Chacha20 Encryption">Chacha20 Encryption</option>
+          <option value="Double Encryption">Double Encryption</option>
+          <option value="Triple Encryption">Triple Encryption</option>
+        </select>
+      </th>
+    </tr>
+    <tr>
+    <th>
+        <button type ="submit" class = "btn btn-lg btn-secondary">Submit</button>
+      </th>
+    </tr>
+    </form>
+    <table>
+</div>
+{%endblock%}
